@@ -38,6 +38,8 @@ realizar uma requisição HTTP conforme exemplo abaixo:
 Após digitar o texto acima, duas linhas em branco devem ser inseridas 
 (com a tecla ENTER), para informar que já finalizamos a requisição.
 
+![Imagem1](/Imagem1.png)
+
 ### Testando uma requisição HTTP
 
 Para testar uma requisição HTTPS é necessário abrir uma conexão TCP, 
