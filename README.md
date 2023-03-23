@@ -69,6 +69,10 @@ Para isso criamos o arquivo `requisicao.txt`, cujo conteúdo por ser visto abaix
     Accept-Language: en-US,en;q=0.9,pt-BR;q=0.8,pt;q=0.7
     Connection: keep-alive
     Host: coordenador.fadesp.org.br
+    
+    
+
+Observe que o arquivo apresenta duas linhas em branco ao final.
 
 ### Testando o Modo ECB
 
