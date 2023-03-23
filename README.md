@@ -49,7 +49,21 @@ Para testar uma requisição HTTPS é necessário abrir uma conexão TCP,
 porém neste caso utilizaremos um aplicativo chamado *openssl*, que será
 responsável por estabelecer o tunel SSL/TLS.
 
+Com o uso do aplicativo *openssl* é possível abrir uma conexão SSL/TLS
+com um servidor por meio do comando abaixo. Observe que agora estamos
+utilizando a porta 443, padrão para comunicações HTTPS. Estamos utilizando 
+o *openssl* porque o aplicativo *netcat* não possui suporte a conexões SSL/TLS.
 
+    $ openssl s_client -ign_eof -connect <endereco_ip>:443
+
+O comando acima abre uma conexão SSL/TLS com um servidor que tem suporte a HTTPS.
+Porém, ainda precisamos de fato enviar o pedido (requisição HTTP). Até então, apenas
+a conexão TCP e o túnel SSL/TLS foi estabelecido. Ainda precisamos *falar* HTTP para 
+fazer o pedido de uma página web.
+
+Para isso criamos o arquivo `requisicao.txt`
+
+![Requisicao](/requisicao.txt)
 
 ### Testando o Modo ECB
 
