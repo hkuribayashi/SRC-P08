@@ -38,6 +38,9 @@ realizar uma requisição HTTP conforme exemplo abaixo:
 Após digitar o texto acima, duas linhas em branco devem ser inseridas 
 (com a tecla ENTER), para informar que já finalizamos a requisição.
 
+Em seguida, o servidor deve devolver uma resposta, conforme exemplificado
+na figura `Imagem1.png`, abaixo.
+
 ![Imagem1](/Imagem1.png)
 
 ### Testando uma requisição HTTP
