@@ -69,23 +69,13 @@ Para isso criamos o arquivo `requisicao.txt`, cujo conteúdo por ser visto abaix
     Accept-Language: en-US,en;q=0.9,pt-BR;q=0.8,pt;q=0.7
     Connection: keep-alive
     Host: coordenador.fadesp.org.br
-    
-    
 
-Observe que o arquivo apresenta duas linhas em branco ao final.
+Observe que o arquivo deve possuir duas linhas em branco ao final. Para combinar o arquivo com o *openssl*
+basta executar o seguinte comando abaixo:
 
-### Testando o Modo ECB
-
-Para alterar o modo de cifragem para *CBC*, simplemente basta mudar o algoritmo 
-para *aes-128-cbc", e alterar o arquivo de saída para *Tux.body.cbc*.
-
-    head -n 3 Tux.ppm > Tux.header
-    tail -n +4 Tux.ppm > Tux.body
-    openssl enc -aes-128-cbc -nosalt -pass pass:"rob" -in Tux.body -out Tux.body.cbc
-    cat Tux.header Tux.body.cbc > Tux.ecb.ppm    
-
+    $ cat requisicao.txt | openssl s_client -ign_eof -connect <endereco_ip>:443
 
 ## Conclusão
 
 O objetivo deste projeto é simplesmente para propósitos educacionais, 
-para permitir ao discente, entender as diferenças entre os modos *ECB* e *CBC*.
+para permitir ao discente, entender as diferenças entre requisições HTTP e HTTPs.
