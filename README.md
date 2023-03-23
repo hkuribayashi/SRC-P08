@@ -61,9 +61,14 @@ Porém, ainda precisamos de fato enviar o pedido (requisição HTTP). Até entã
 a conexão TCP e o túnel SSL/TLS foi estabelecido. Ainda precisamos *falar* HTTP para 
 fazer o pedido de uma página web.
 
-Para isso criamos o arquivo `requisicao.txt`
+Para isso criamos o arquivo `requisicao.txt`, cujo conteúdo por ser visto abaixo.
 
-![Requisicao](/requisicao.txt)
+    GET / HTTP/1.1
+    Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7
+    Accept-Encoding: gzip, deflate, br
+    Accept-Language: en-US,en;q=0.9,pt-BR;q=0.8,pt;q=0.7
+    Connection: keep-alive
+    Host: coordenador.fadesp.org.br
 
 ### Testando o Modo ECB
 
