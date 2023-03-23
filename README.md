@@ -1,96 +1,50 @@
 # SRC-P08 (Requisições HTTP e HTTPS)
 
-Este projeto é uma demonstração reproduzível do conceito "ECB Penguin",
-para que você mesmo possa fazer o trabalho na linha de comando para criar 
-suas próprias imagens cifradas.
+Este projeto é uma demonstração reproduzível do conceito de requisições,
+HTTP e HTTPs para que você mesmo possa fazer o trabalho na linha de comando.
 
 Este projeto é para alunos da disciplina SI01033 (Segurança em Redes de Computadores) 
 do Curso de Sistemas de Informação da Unifesspa, que querem testar ferramentas 
 de criptografia para  reproduzir os próprios resultados ou brincar com o conceito 
 para criar variações dos resultados a serem obtidos.
 
-## O que é o Projeto ECB Penguin?
+## Ferramentas
 
-O algoritmo de criptografia mais comum, AES, usa uma *cifra de bloco* com
-blocos de 128 bits.
+Instalar a ferramenta *netcat* via terminal do Linux:
 
-Uma *cifra de bloco* sempre criptografa o mesmo conteúdo da mesma maneira, dado
-a mesma chave (processo determinístico).
+    $ sudo apt update
+    $ sudo apt install netcat
 
-Podemos demonstrar isso criptografando imagens de desenhos animados. Figuras/Desenhos 
-tendem a ter regiões onde todas as cores são as mesmas e, portanto, irão gerar a mesma 
-criptografia ao usar uma cifra de bloco.
+Com a ferramenta *netcat* instalada, ela pode ser utilizada da seguinte forma:
 
-A figura mais famosa por demonstrar isso, de onde vem esse problema
-seu nome, é o mascote pinguim Linux conhecido como "Tux" (autoria de Larry Ewing 
-lewing@isc.tamu.edu [Referência](https://commons.wikimedia.org/wiki/File:Tux.png)):
+    $ nc <endereco_ip> <porta>
 
-![Tux](/Tux.png)
+Onde, <endereco_ip> deve ser substituído pelo endereço IP do servidor e <porta>
+pelo número da porta onde roda o serviço Web, conforme o exemplo a seguir:
 
-Observe como grandes regiões do desenho são completamente brancas (0xFFFFFF)
-ou completamente preto (0x000000).
+    $ nc 200.129.138.99 80  
 
-Na imagem abaixo, nós o criptografamos usando o modo ECB.
 
-![Tux-ecb](/Tux.ecb.png)
+### Testando uma requisição HTTP
 
-Como você pode ver, a imagem ainda é reconhecível como um pinguim.
+Para testar uma requisição HTTP é necessário abrir uma conexão TCP com 
+o servidor de destino, por meio do aplicativo *netcat*, e posteriormente
+realizar uma requisição HTTP conforme exemplo abaixo:
 
-### Testando o Modo ECB
+    $ nc 200.129.138.99 80
+    GET / HTTP/1.1
+    Host: coordenador.fadesp.org.br
 
-O objetivo deste projeto não é descrever o pinguim ECB, mas ajudar o discente reproduzi-lo.
+Após digitar o texto acima, duas linhas em branco devem ser inseridas 
+(com a tecla ENTER), para informar que já finalizamos a requisição.
 
-Começamos com o arquivo `Tux.ppm`. Ele está em um formato bruto descompactado, conhecido 
-como PPM.
+### Testando uma requisição HTTP
 
-O formato de imagem PPM tem quatro campos de texto seguidos por dados binários:
-1. O tipo de arquivo; 
-2. A largura em pixels; 
-3. A altura em pixels; e 
-4. O número de cores (geralmente 255 ou 256 para cor de 8 bits).
+Para testar uma requisição HTTPS é necessário abrir uma conexão TCP, 
+porém neste caso utilizaremos um aplicativo chamado *openssl*, que será
+responsável por estabelecer o tunel SSL/TLS.
 
-O restante do arquivo são dados binários contendo a imagem bruta e descompactada.
 
-Podemos recuperar o cabeçalho deste arquivo fazendo:
-
-    $ head -n 3 Tux.ppm
-    P6
-    265 314
-    255
-
-Isso significa que o restante dos dados binários é de 265x314 pixels por 255 cores.
-
-Para criar nosso pinguim (criptografado), queremos seguir os seguintes passos:
-   1. separar o cabeçalho do corpo
-   2. criptografar o corpo usando a ferramenta de linha de comando `openssl`
-   3. combine o caceçalho original com o novo corpo criptografado
-
-Isso pode ser feito com os seguintes comandos:
-
-    head -n 3 Tux.ppm > Tux.header
-    tail -n +4 Tux.ppm > Tux.body
-    openssl enc -aes-128-ecb -nosalt -pass pass:"senha" -in Tux.body -out Tux.body.ecb
-    cat Tux.header Tux.body.ecb > Tux.ecb.ppm
-
-Então, vamos visualizar os resultados. Muitos visualizadores de imagens podem decodificar o formato PPM.
-No macOS, usei o aplicativo Preview. Eu também usei esse aplicativo para salvar os resultados em
-o formato PNG mais convencional (comprimido) (`Tux.ecb.png`), que você pode visualizar no navegador.
-Eu deixei o formato PNG neste projeto, para exibição nesta página.
-
-## Mudando para CBC
-
-Conforme observado, o modo ECB ainda pode falhar em escoder a informação. 
-
-Um modo alternativo para lidar com essa situação é conhecido como *cipher block chaining* (CBC). 
-
-Em vez de criptografar um *bloco* com uma *chave*, você criptografa o *bloco* atual com
-tanto a *chave* quanto os resultados do bloco anterior.
-
-No exemplo a seguir, criptografamos nossa imagem com AES, mas desta vez, usando
-*CBC*. Como você pode ver, agora o conteúdo do arquivo está mais complexo.
-Não temos nenhuma pista aqui do que o conteúdo original poderia ter sido.
-
-![Tux-cbc](/Tux.cbc.png)
 
 ### Testando o Modo ECB
 
