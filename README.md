@@ -1,4 +1,4 @@
-# PROJETO SRC-P08 (Requisições HTTP e HTTPS)
+# SRC-P08 (Requisições HTTP e HTTPS)
 
 Este projeto é uma demonstração reproduzível do conceito "ECB Penguin",
 para que você mesmo possa fazer o trabalho na linha de comando para criar 
